@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
+    <title>Raíces que nos unen</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary: #1A2B4C;
+            --accent: #C5A059;
+            --bg: #FDFBF9;
+            --white: #ffffff;
+            --text: #333333;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* HEADER Y NAVEGACIÓN PRINCIPAL (CINTA DESLIZABLE) */
+        header {
+            background: var(--white);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+        }
+
+        .brand {
+            text-align: center;
+            padding: 10px 0;
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--primary);
+            border-bottom: 1px solid #eee;
+        }
+
+        .scroll-nav {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            padding: 10px;
+            gap: 10px;
+            scrollbar-width: none; /* Firefox */
+        }
+
+        .scroll-nav::-webkit-scrollbar {
+            display: none; /* Chrome/Safari */
+        }
+
+        .nav-link {
+            display: inline-block;
+            padding: 8px 20px;
+            background: #f0f0f0;
+            color: var(--text);
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: 0.3s;
+        }
+
+        .nav-link.active {
+            background: var(--primary);
+            color: var(--white);
+        }
+
+        /* SECCIONES */
+        .page-section {
+            display: none;
+            padding: 20px;
+            max-width: 800px;
+            margin: 0 auto;
+            animation: fadeIn 0.4s ease-out;
+        }
+
+        .page-section.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* SUB-NAVEGACIÓN POR REGIÓN (CINTA DESLIZABLE) */
+        .sub-scroll-nav {
+            display: flex;
+            overflow-x: auto;
+            white-space: nowrap;
+            gap: 10px;
+            padding: 15px 0;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ddd;
+            scrollbar-width: none;
+        }
+
+        .sub-scroll-nav::-webkit-scrollbar { display: none; }
+
+        .sub-btn {
+            padding: 8px 15px;
+            border: 1px solid #ccc;
+            background: var(--white);
+            border-radius: 5px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+        }
+
+        .sub-btn.active {
+            background: var(--accent);
+            color: var(--white);
+            border-color: var(--accent);
+        }
+
+        /* CONTENIDO */
+        .content-card {
+            display: none;
+            background: var(--white);
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 30px;
+        }
+
+        .content-card.active {
+            display: block;
+        }
+
+        .img-box {
+            width: 100%;
+            height: 250px;
+            background: #eee;
+            overflow: hidden;
+        }
+
+        .img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .text-box {
+            padding: 20px;
+        }
+
+        h2 {
+            font-family: 'Playfair Display', serif;
+            margin-bottom: 10px;
+            color: var(--primary);
+        }
+
+        h3 {
+            color: var(--accent);
+            margin-bottom: 10px;
+        }
+
+        p {
+            margin-bottom: 15px;
+            font-size: 0.95rem;
+            color: #555;
+        }
+
+        .list-info {
+            list-style: none;
+        }
+
+        .list-info li {
+            position: relative;
+            padding-left: 20px;
+            margin-bottom: 8px;
+            font-size: 0.9rem;
+        }
+
+        .list-info li::before {
+            content: "•";
+            color: var(--accent);
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        footer {
+            text-align: center;
+            padding: 30px;
+            font-size: 0.8rem;
+            color: #999;
+        }
+
+        /* ESTILO INICIO */
+        .hero {
+            text-align: center;
+            padding: 40px 0;
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            margin-bottom: 15px;
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <div class="brand">Raíces que nos unen</div>
+    <nav class="scroll-nav">
+        <a href="javascript:void(0)" class="nav-link active" onclick="nav('inicio', this)">Inicio</a>
+        <a href="javascript:void(0)" class="nav-link" onclick="nav('pacifico', this)">Región Pacífico</a>
+        <a href="javascript:void(0)" class="nav-link" onclick="nav('central', this)">Región Central</a>
+        <a href="javascript:void(0)" class="nav-link" onclick="nav('caribe', this)">Región Caribe</a>
+    </nav>
+</header>
+
+<main>
+    <!-- SECCIÓN INICIO -->
+    <section id="sec-inicio" class="page-section active">
+        <div class="hero">
+            <h1>Bienvenido a Nicaragua</h1>
+            <p>Descubre el corazón de Centroamérica a través de sus regiones naturales e históricas.</p>
+        </div>
+        <div class="img-box" style="height: 350px; border-radius: 15px;">
+            <img src="https://i.ibb.co/GQrRB9Tw/portada.jpg" alt="[Imagen de Nicaragua]">
+        </div>
+    </section>
+
+    <!-- SECCIÓN PACÍFICO -->
+    <section id="sec-pacifico" class="page-section">
+        <h2>Región del Pacífico</h2>
+        <div class="sub-scroll-nav">
+            <button class="sub-btn active" onclick="sub('pacifico', 'geo', this)">Geografía</button>
+            <button class="sub-btn" onclick="sub('pacifico', 'hist', this)">Historia</button>
+            <button class="sub-btn" onclick="sub('pacifico', 'cult', this)">Cultura</button>
+            <button class="sub-btn" onclick="sub('pacifico', 'econ', this)">Economía</button>
+        </div>
+
+        <div id="pacifico-geo" class="content-card active">
+            <div class="img-box"><img src="https://i.ibb.co/dJmhbvFk/pacific1.jpg" alt="[Imagen Geografía Pacífico]"></div>
+            <div class="text-box">
+                <h3>Geografía Viva</h3>
+                <p>Relieve formado por fuerzas internas como el tectonismo y vulcanismo. Destaca la llanura granadina y la cordillera de los Maribios.</p>
+                <ul class="list-info">
+                    <li>Suelos volcánicos fértiles.</li>
+                    <li>Lagos Xolotlán y Cocibolca.</li>
+                    <li>Clima cálido con dos estaciones definidas.</li>
+                </ul>
+            </div>
+        </div>
+        <div id="pacifico-hist" class="content-card">
+            <div class="img-box"><img src="https://i.ibb.co/sdLB9hsP/pacific2.jpg" alt="[Imagen Historia Pacífico]"></div>
+            <div class="text-box">
+                <h3>Historia Regional</h3>
+                <p>Centro administrativo desde hace 400 años. Fundación de León y Granada en 1524.</p>
+                <ul class="list-info">
+                    <li>Cuna de Nicaraos y Chorotegas.</li>
+                    <li>Invasión de William Walker (1855).</li>
+                </ul>
+            </div>
+        </div>
+        <div id="pacifico-cult" class="content-card">
+            <div class="img-box"><img src="https://i.ibb.co/G3FHFsZB/pacific3.jpg" alt="[Imagen Cultura Pacífico]"></div>
+            <div class="text-box">
+                <h3>Identidad y Tradición</h3>
+                <p>El Güegüense es la máxima expresión, declarado Patrimonio de la Humanidad por la UNESCO.</p>
+                <ul class="list-info">
+                    <li>Gastronomía: Vigorón, Baho, Quesillo.</li>
+                    <li>Danza de la marimba de arco.</li>
+                </ul>
+            </div>
+        </div>
+        <div id="pacifico-econ" class="content-card">
+            <div class="img-box"><img src="https://i.ibb.co/k2k6dnX9/pacific4.jpg" alt="[Imagen Economía Pacífico]"></div>
+            <div class="text-box">
+                <h3>Motor Económico</h3>
+                <p>Genera más del 80% del ingreso nacional. Concentra el 88.2% del valor industrial.</p>
+                <ul class="list-info">
+                    <li>Cultivos de caña, maní y ajonjolí.</li>
+                    <li>Turismo en San Juan del Sur y Granada.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CENTRAL -->
+    <section id="sec-central" class="page-section">
+        <h2>Región Central</h2>
+        <div class="sub-scroll-nav">
+            <button class="sub-btn active" onclick="sub('central', 'geo', this)">Geografía</button>
+            <button class="sub-btn" onclick="sub('central', 'hist', this)">Historia</button>
+            <button class="sub-btn" onclick="sub('central', 'cult', this)">Cultura</button>
+            <button class="sub-btn" onclick="sub('central', 'econ', this)">Economía</button>
+        </div>
+
+        <div id="central-geo" class="content-card active">
+            <div class="img-box"><img src="https://i.ibb.co/vx2GzKNq/central1.jpg" alt="[Imagen Geografía Central]"></div>
+            <div class="text-box">
+                <h3>El Pulmón del País</h3>
+                <p>Tierras altas con cordilleras como Dipilto y Jalapa. Climas frescos y nuboselváticos.</p>
+            </div>
+        </div>
+        <div id="central-hist" class="content-card">
+            <div class="img-box"><img src="https://i.ibb.co/mrfZwvLr/central2.jpg" alt="[Imagen Historia Central]"></div>
+            <div class="text-box">
+                <h3>Resistencia Indígena</h3>
+                <p>Escenario de luchas históricas y cuna de la resistencia de Sandino en las montañas de Jinotega.</p>
+            </div>
+        </div>
+        <div id="central-cult" class="content-card">
+            <div class="img-box"><img src="https://i.ibb.co/spP8MBpx/central3.jpg" alt="[Imagen Cultura Central]"></div>
+            <div class="text-box">
+                <h3>Polkas y Mazurcas</h3>
+                <p>Cultura campesina marcada por ritmos europeos adaptados al norte. Famosa por sus rosquillas de Somoto.</p>
+            </div>
+        </div>
+        <div id="central-econ" class="content-card">
+            <div class="img-box"><img src="https://i.ibb.co/Lh1pw7jV/central4.jpg" alt="[Imagen Economía Central]"></div>
+            <div class="text-box">
+                <h3>Eje Cafetalero y Ganadero</h3>
+                <p>Mayor producción de café de exportación y ganadería de leche en Boaco y Chontales.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN CARIBE -->
+    <section id="sec-caribe" class="page-section">
+        <h2>Región Caribe</h2>
+        <div class="sub-scroll-nav">
+            <button class="sub-btn active" onclick="sub('caribe', 'geo', this)">Geografía</button>
+            <button class="sub-btn" onclick="sub('caribe', 'hist', this)">Historia</button>
+            <button class="sub-btn" onclick="sub('caribe', 'cult', this)">Cultura</button>
+            <button class="sub-btn" onclick="sub('caribe', 'econ', this)">Economía</button>
+            <button class="sub-btn" onclick="sub('caribe', 'retos', this)">Retos</button>
+        </div>
+
+        <div id="caribe-geo" class="content-card active">
+            <div class="img-box"><img src="https://i.ibb.co/dRhqQG5/caribe1.jpg" alt="[Imagen Geografía Caribe]"></div>
+            <div class="text-box">
+                <h3>Selva y Agua</h3>
+                <p>Llanuras inmensas con ríos caudalosos como el Río Coco y el Escondido. Clima tropical húmedo.</p>
+            </div>
+        </div>
+        <div id="caribe-hist" class="content-card">
+            <div class="img-box"><img src="https://i.ibb.co/TDRJm8xd/caribe2.jpg" alt="[Imagen Historia Caribe]"></div>
+            <div class="text-box">
+                <h3>Historia y Autonomía</h3>
+                <p>Influencia británica y protectorado de la Mosquitia. Ley de Autonomía de 1987.</p>
+            </div>
+        </div>
+        <div id="caribe-cult" class="content-card">
+            <div class="img-box"><img src="https://i.ibb.co/39mTxc2j/caribe3.jpg" alt="[Imagen Cultura Caribe]"></div>
+            <div class="text-box">
+                <h3>Mosaico Étnico</h3>
+                <p>Convivencia de Miskitos, Mayangnas, Ramas y Creoles. Fiestas de Mayo Ya (Palo de Mayo).</p>
+            </div>
+        </div>
+        <div id="caribe-econ" class="content-card">
+            <div class="img-box"><img src="https://i.ibb.co/6cFtVM3F/caribe4.jpg" alt="[Imagen Economía Caribe]"></div>
+            <div class="text-box">
+                <h3>Riqueza Natural</h3>
+                <p>Economía basada en la pesca, minería de oro en el Triángulo Minero y recursos forestales.</p>
+            </div>
+        </div>
+        <div id="caribe-retos" class="content-card">
+            <div class="img-box"><img src="https://i.ibb.co/0pMKY2DY/caribe5.jpg" alt="[Imagen Retos Caribe]"></div>
+            <div class="text-box">
+                <h3>Retos y Futuro</h3>
+                <p>Pérdida de biodiversidad, deforestación y necesidad de infraestructura básica para las comunidades.</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+<footer>
+    <p>Proyecto: Raíces que nos unen &copy; 2026</p>
+</footer>
+
+<script>
+    // Función de Navegación Principal
+    function nav(id, el) {
+        // Ocultar todas las secciones
+        document.querySelectorAll('.page-section').forEach(s => s.classList.remove('active'));
+        // Quitar active de botones
+        document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+        
+        // Activar seleccionada
+        document.getElementById('sec-' + id).classList.add('active');
+        el.classList.add('active');
+        
+        // Scroll horizontal suave al botón
+        el.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+        // Subir al inicio de la página
+        window.scrollTo(0,0);
+    }
+
+    // Función de Sub-navegación (Pestañas internas)
+    function sub(region, topic, el) {
+        const parent = document.getElementById('sec-' + region);
+        // Ocultar todas las tarjetas de esa región
+        parent.querySelectorAll('.content-card').forEach(c => c.classList.remove('active'));
+        // Quitar active de sub-botones
+        parent.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active'));
+        
+        // Mostrar tarjeta seleccionada
+        document.getElementById(region + '-' + topic).classList.add('active');
+        el.classList.add('active');
+        
+        // Scroll horizontal suave al botón
+        el.scrollIntoView({ behavior: 'smooth', inline: 'center', block: 'nearest' });
+    }
+</script>
+
+</body>
+</html>
